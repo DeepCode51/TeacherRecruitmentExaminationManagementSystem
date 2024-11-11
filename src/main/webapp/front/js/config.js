@@ -1,0 +1,114 @@
+
+var projectName = '教师招聘考试系统';
+/**
+ * 轮播图配置
+ */
+var swiper = {
+	// 设定轮播容器宽度，支持像素和百分比
+	width: '100%',
+	height: '400px',
+	// hover（悬停显示）
+	// always（始终显示）
+	// none（始终不显示）
+	arrow: 'none',
+	// default（左右切换）
+	// updown（上下切换）
+	// fade（渐隐渐显切换）
+	anim: 'default',
+	// 自动切换的时间间隔
+	// 默认3000
+	interval: 2000,
+	// 指示器位置
+	// inside（容器内部）
+	// outside（容器外部）
+	// none（不显示）
+	indicator: 'outside'
+}
+
+/**
+ * 个人中心菜单
+ */
+var centerMenu = [{
+	name: '个人中心',
+	url: '../' + localStorage.getItem('userTable') + '/center.html'
+}, 
+{
+	name: '笔试记录',
+	url: '../examrecord/list.html'
+}, 
+{
+	name: '错题本',
+	url: '../examrecord/wrong.html'
+},
+{
+        name: '我的收藏',
+        url: '../storeup/list.html'
+}
+]
+
+
+var indexNav = [
+
+{
+	name: '招聘信息',
+	url: './pages/zhaopinxinxi/list.html'
+}, 
+
+{
+	name: '试卷',
+	url: './pages/exampaper/list.html'
+}, 
+{
+	name: '招聘资讯',
+	url: './pages/news/list.html'
+},
+]
+
+var adminurl =  "http://localhost:8080/ssmm7i10/admin/dist/index.html";
+
+var cartFlag = false
+
+var chatFlag = false
+
+
+chatFlag = true
+
+
+var menu = [{"backMenu":[{"child":[{"buttons":["新增","查看","修改","删除"],"menu":"用户","menuJump":"列表","tableName":"yonghu"}],"menu":"用户管理"},{"child":[{"buttons":["新增","查看","修改","删除"],"menu":"学历分类","menuJump":"列表","tableName":"xuelifenlei"}],"menu":"学历分类管理"},{"child":[{"buttons":["新增","查看","修改","删除","邀请"],"menu":"个人简历","menuJump":"列表","tableName":"gerenjianli"}],"menu":"个人简历管理"},{"child":[{"buttons":["新增","查看","修改","删除","查看评论"],"menu":"招聘信息","menuJump":"列表","tableName":"zhaopinxinxi"}],"menu":"招聘信息管理"},{"child":[{"buttons":["查看","修改","删除","审核","结果","结果通知"],"menu":"应聘信息","menuJump":"列表","tableName":"yingpinxinxi"}],"menu":"应聘信息管理"},{"child":[{"buttons":["查看","修改","删除","结果通知"],"menu":"应聘邀请","menuJump":"列表","tableName":"yingpinyaoqing"}],"menu":"应聘邀请管理"},{"child":[{"buttons":["查看","修改","删除","报表"],"menu":"应聘结果","menuJump":"列表","tableName":"yingpinjieguo"}],"menu":"应聘结果管理"},{"child":[{"buttons":["新增","查看","修改","删除"],"menu":"试卷管理","tableName":"exampaper"}],"menu":"试卷管理"},{"child":[{"buttons":["新增","查看","修改","删除"],"menu":"笔试试题管理","tableName":"examquestion"}],"menu":"笔试试题管理"},{"child":[{"buttons":["新增","查看","修改","删除"],"menu":"在线沟通","tableName":"chat"},{"buttons":["新增","查看","修改","删除"],"menu":"轮播图管理","tableName":"config"},{"buttons":["查看","编辑名称","编辑父级","删除"],"menu":"菜单列表","tableName":"menu"},{"buttons":["新增","查看","修改","删除"],"menu":"招聘资讯","tableName":"news"}],"menu":"系统管理"},{"child":[{"buttons":["新增","查看","修改","删除"],"menu":"错题本","tableName":"examfailrecord"},{"buttons":["新增","查看","修改","删除"],"menu":"试卷列表","tableName":"exampaperlist"},{"buttons":["新增","查看","修改","删除"],"menu":"笔试记录","tableName":"examrecord"}],"menu":"笔试管理"}],"frontMenu":[{"child":[{"buttons":["查看","申请","应聘"],"menu":"招聘信息列表","menuJump":"列表","tableName":"zhaopinxinxi"}],"menu":"招聘信息模块"}],"hasBackLogin":"是","hasBackRegister":"否","hasFrontLogin":"否","hasFrontRegister":"否","roleName":"管理员","tableName":"users"},{"backMenu":[{"child":[{"buttons":["新增","查看","修改","删除"],"menu":"个人简历","menuJump":"列表","tableName":"gerenjianli"}],"menu":"个人简历管理"},{"child":[{"buttons":["查看","修改","删除"],"menu":"应聘信息","menuJump":"列表","tableName":"yingpinxinxi"}],"menu":"应聘信息管理"},{"child":[{"buttons":["查看","审核"],"menu":"应聘邀请","menuJump":"列表","tableName":"yingpinyaoqing"}],"menu":"应聘邀请管理"},{"child":[{"buttons":["查看"],"menu":"应聘结果","menuJump":"列表","tableName":"yingpinjieguo"}],"menu":"应聘结果管理"},{"child":[{"buttons":["查看","删除"],"menu":"我的收藏管理","tableName":"storeup"}],"menu":"我的收藏管理"},{"child":[{"buttons":["新增","查看","修改","删除"],"menu":"错题本","tableName":"examfailrecord"},{"buttons":["新增","查看","修改","删除"],"menu":"试卷列表","tableName":"exampaperlist"},{"buttons":["新增","查看","修改","删除"],"menu":"笔试记录","tableName":"examrecord"}],"menu":"笔试管理"}],"frontMenu":[{"child":[{"buttons":["查看","申请","应聘"],"menu":"招聘信息列表","menuJump":"列表","tableName":"zhaopinxinxi"}],"menu":"招聘信息模块"}],"hasBackLogin":"是","hasBackRegister":"否","hasFrontLogin":"是","hasFrontRegister":"是","roleName":"用户","tableName":"yonghu"}]
+
+
+var isAuth = function (tableName,key) {
+    let role = localStorage.getItem("userTable");
+    let menus = menu;
+    for(let i=0;i<menus.length;i++){
+        if(menus[i].tableName==role){
+            for(let j=0;j<menus[i].backMenu.length;j++){
+                for(let k=0;k<menus[i].backMenu[j].child.length;k++){
+                    if(tableName==menus[i].backMenu[j].child[k].tableName){
+                        let buttons = menus[i].backMenu[j].child[k].buttons.join(',');
+                        return buttons.indexOf(key) !== -1 || false
+                    }
+                }
+            }
+        }
+    }
+    return false;
+}
+
+var isFrontAuth = function (tableName,key) {
+    let role = localStorage.getItem("userTable");
+    let menus = menu;
+    for(let i=0;i<menus.length;i++){
+        if(menus[i].tableName==role){
+            for(let j=0;j<menus[i].frontMenu.length;j++){
+                for(let k=0;k<menus[i].frontMenu[j].child.length;k++){
+                    if(tableName==menus[i].frontMenu[j].child[k].tableName){
+                        let buttons = menus[i].frontMenu[j].child[k].buttons.join(',');
+                        return buttons.indexOf(key) !== -1 || false
+                    }
+                }
+            }
+        }
+    }
+    return false;
+}
